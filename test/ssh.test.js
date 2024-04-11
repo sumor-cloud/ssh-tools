@@ -2,14 +2,14 @@ import {
   describe, expect, it
 } from '@jest/globals'
 
-import entry from '../src/index.js'
+import SSHEntry from '../src/index.js'
 import SSH from '../src/SSH.js'
 import server from './server.js'
 import lock from '../src/tools/lock.js'
 
 describe('SSH', () => {
   it('entry', () => {
-    const ssh = entry(server)
+    const ssh = new SSHEntry(server)
     expect(ssh).toBeInstanceOf(SSH)
     expect(ssh.file).not.toBeNull()
     expect(ssh.port).not.toBeNull()
