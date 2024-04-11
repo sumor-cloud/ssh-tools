@@ -8,14 +8,6 @@ import server from './server.js'
 import lock from '../src/tools/lock.js'
 
 describe('SSH', () => {
-  it('entry', () => {
-    const ssh = new SSHEntry(server)
-    expect(ssh).toBeInstanceOf(SSH)
-    expect(ssh.file).not.toBeNull()
-    expect(ssh.port).not.toBeNull()
-    expect(ssh.lock).not.toBeNull()
-    expect(ssh.monitor).not.toBeNull()
-  })
   it('connect failed', async () => {
     const wrongServer = {
       host: 'wrong',
@@ -36,6 +28,25 @@ describe('SSH', () => {
     const ssh = new SSH(server)
     await ssh.disconnect() // only for test disconnect without connect
     await ssh.connect()
+
+    try {
+      // Test command execution
+      const result = await ssh.exec('echo "OK"')
+      expect(result).toStrictEqual('OK')
+
+      await ssh.disconnect()
+    } catch (e) {
+      await ssh.disconnect()
+      throw e
+    }
+  }, 2 * 60 * 1000)
+  it('entry', async () => {
+    const ssh = new SSHEntry(server)
+    expect(ssh).toBeInstanceOf(SSH)
+    expect(ssh.file).not.toBeNull()
+    expect(ssh.port).not.toBeNull()
+    expect(ssh.lock).not.toBeNull()
+    expect(ssh.monitor).not.toBeNull()
 
     try {
       // Test command execution
