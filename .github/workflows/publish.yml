@@ -1,0 +1,35 @@
+name: Publish
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  publish:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install NPM dependencies
+        run: npm ci
+      - name: Check dependencies size
+        run: du -sh node_modules
+      - name: Syntax specification checking using ESLint
+        run: npm run lint
+      - name: Run NPM audit
+        run: npm audit
+      - name: Ensure config directory exists
+        run: mkdir -p ./test/config
+      - name: Export config TEST_SERVER
+        run: echo '${{ secrets.TEST_SERVER }}' > ./test/config/server.json
+      - name: Unit test with coverage using Jest
+        run: npm test
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

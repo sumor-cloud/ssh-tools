@@ -1,0 +1,60 @@
+{
+  "name": "@sumor/ssh-tools",
+  "description": "SSH connections and tools that are simple, easy to use, and scalable.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": "sumor-cloud/ssh-tools",
+  "author": "Sumor Cloud Ltd",
+  "homepage": "https://sumor.cloud",
+  "type": "module",
+  "main": "./index.js",
+  "exports": "./index.js",
+  "keywords": [
+    "ssh",
+    "file",
+    "monitor"
+  ],
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "node-ssh": "^13.1.0",
+    "archiver": "^2.1.1",
+    "extract-zip": "^1.6.6"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "axios": "^1.6.8",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "jest-html-reporter": "^3.10.2"
+  },
+  "files": [
+    "src",
+    "LICENSE",
+    "index.js",
+    ".gitignore"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "link": "npm link",
+    "lint": "eslint .",
+    "audit": "npm audit fix --force",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
+    "test-ssh": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/ssh.test.js'",
+    "test-file": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/file.test.js'",
+    "test-lock": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/lock.test.js'",
+    "test-utils": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/utils.test.js'",
+    "test-monitor": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/monitor.test.js'",
+    "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
+    "push-tag": "git push --tags && git push",
+    "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
+    "publish-release-patch": "npm version patch && npm run push-tag",
+    "publish-release-minor": "npm version minor && npm run push-tag",
+    "publish-release-major": "npm version major && npm run push-tag",
+    "prepare": "husky",
+    "check": "eslint --fix . && npm audit fix --force && npm run coverage"
+  }
+}

@@ -1,0 +1,15 @@
+printf "Checking before commit, please review the error report below\n"
+
+# Print system version
+printf "System version: $(uname -a)\n"
+
+# Determine if it is a windows system or Github client, if so, use npm.cmd
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" || "$OSTYPE" == "cygwin" || -n "$GITHUB_ACTIONS" ]]; then
+    npm.cmd run lint
+    npm.cmd audit
+    npm.cmd test
+else
+    npm run lint
+    npm audit
+    npm test
+fi
