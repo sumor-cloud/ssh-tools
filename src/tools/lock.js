@@ -8,19 +8,15 @@ const randomId = () => {
 
 export default (ssh) => {
   const sshFileUtils = file(ssh)
-  const lockRoot = '/usr/sumor/lock'
+  const lockRoot = '/usr/sumor-cloud/lock'
 
   const release = async (name, id) => {
     const lockPath = `${lockRoot}/${name}.lock`
     if (await sshFileUtils.exists(lockPath)) {
-      try {
-        let lockData = await sshFileUtils.readFile(lockPath)
-        lockData = JSON.parse(lockData)
-        if (lockData.id === id) {
-          await sshFileUtils.delete(lockPath)
-        }
-      } catch (e) {
-        // do nothing
+      let lockData = await sshFileUtils.readFile(lockPath)
+      lockData = JSON.parse(lockData)
+      if (lockData.id === id) {
+        await sshFileUtils.delete(lockPath)
       }
     }
   }

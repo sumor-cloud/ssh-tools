@@ -15,7 +15,7 @@ const randomId = () => {
 }
 
 describe('SSH lock tool', () => {
-  const lockRoot = '/usr/sumor/lock'
+  const lockRoot = '/usr/sumor-cloud/lock'
   const name = `test-lock-${randomId()}`
 
   it('lock', async () => {
