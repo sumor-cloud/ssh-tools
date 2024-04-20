@@ -27,10 +27,10 @@ describe('SSH lock tool', () => {
       const lockTool = lock(ssh)
       const fileTool = file(ssh)
 
-      const lockInstance = await lockTool.lock(name + '1')
+      const lockId = await lockTool.lock(name + '1')
       expect(await fileTool.exists(lockPath)).toBe(true)
 
-      await lockInstance.release()
+      await lockTool.release(name + '1', lockId)
       expect(await fileTool.exists(lockPath)).toBe(false)
 
       await ssh.disconnect()
@@ -53,18 +53,18 @@ describe('SSH lock tool', () => {
       const lockTool = lock(ssh)
       let finishedThreadCount = 0
 
-      const lockInstance1 = await lockTool.lock(name + '2')
+      const lockId1 = await lockTool.lock(name + '2')
 
       const thread1 = async () => {
         await delay(2000)
         result += '1'
-        await lockInstance1.release()
+        await lockTool.release(name + '2', lockId1)
         finishedThreadCount++
       }
       const thread2 = async () => {
-        const lockInstance = await lockTool.lock(name + '2')
+        const lockId2 = await lockTool.lock(name + '2')
         result += '2'
-        await lockInstance.release()
+        await lockTool.release(name + '2', lockId2)
         finishedThreadCount++
       }
       thread1()

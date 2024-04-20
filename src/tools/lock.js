@@ -63,15 +63,12 @@ export default (ssh) => {
       timeout
     }))
 
-    return {
-      release: async () => {
-        await release(name, id)
-      }
-    }
+    return id
   }
 
   return {
     lock,
-    check
+    check,
+    release
   }
 }

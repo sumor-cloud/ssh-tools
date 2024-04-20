@@ -66,7 +66,7 @@ describe('SSH', () => {
     try {
       const lockTool = lock(ssh)
       const name = 'ssh-tools-test-ssh-install'
-      const lockInstance = await lockTool.lock(name, 2 * 60 * 1000)
+      const lockId = await lockTool.lock(name, 2 * 60 * 1000)
 
       // clean up the environment
       await ssh.uninstall('htop')
@@ -86,7 +86,7 @@ describe('SSH', () => {
       installed = await ssh.isInstalled('htop')
       expect(installed).toStrictEqual(false)
 
-      await lockInstance.release()
+      await lockTool.release(name, lockId)
       await ssh.disconnect()
     } catch (e) {
       await ssh.disconnect()
@@ -101,7 +101,7 @@ describe('SSH', () => {
     try {
       const lockTool = lock(ssh)
       const name = 'ssh-tools-test-ssh-install-failed'
-      const lockInstance = await lockTool.lock(name, 2 * 60 * 1000)
+      const lockId = await lockTool.lock(name, 2 * 60 * 1000)
 
       // Test software installation failed
       let error1 = null
@@ -120,7 +120,7 @@ describe('SSH', () => {
       // }
       // expect(error2).not.toBeNull()
 
-      await lockInstance.release()
+      await lockTool.release(name, lockId)
       await ssh.disconnect()
     } catch (e) {
       await ssh.disconnect()
