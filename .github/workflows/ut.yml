@@ -4,7 +4,7 @@ on:
     - cron: '0 * * * *'
 jobs:
   test:
-    name: Unit Test
+    name: Unit test for latest dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -17,7 +17,7 @@ jobs:
       - name: Remove package-lock.json
         run: rm -f package-lock.json
       - name: Install NPM dependencies
-        run: npm ci
+        run: npm i
       - name: Check dependencies size
         run: du -sh node_modules
       - name: Ensure config directory exists
