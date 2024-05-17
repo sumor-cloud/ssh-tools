@@ -1,5 +1,3 @@
-// port number prefix is 112
-
 import { describe, expect, it } from '@jest/globals'
 
 import SSH from '../../src/SSH.js'

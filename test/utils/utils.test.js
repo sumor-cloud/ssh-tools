@@ -1,5 +1,3 @@
-// port number prefix is 111
-
 import { describe, expect, it } from '@jest/globals'
 
 import retry from '../../src/utils/retry.js'
