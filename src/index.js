@@ -5,7 +5,7 @@ import lock from './tools/lock.js'
 import monitor from './tools/monitor.js'
 
 class SSH extends SSHBasic {
-  constructor (config) {
+  constructor(config) {
     super(config)
     this.addTool('port', port)
     this.addTool('file', file)

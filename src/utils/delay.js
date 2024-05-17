@@ -1,6 +1,6 @@
-export default async (interval) => {
+export default async interval => {
   interval = interval || 1000
-  await new Promise((resolve) => {
+  await new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, interval)

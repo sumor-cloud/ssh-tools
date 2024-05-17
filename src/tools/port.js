@@ -1,5 +1,5 @@
-export default (ssh) => {
-  const isOccupied = async (port) => {
+export default ssh => {
+  const isOccupied = async port => {
     try {
       const result = await ssh.exec(`lsof -i:${port}`, {
         cwd: '/'
@@ -34,7 +34,7 @@ export default (ssh) => {
   }
   return {
     isOccupied,
-    async getPort (start, range) {
+    async getPort(start, range) {
       return await _getPort(start, range)
     }
   }

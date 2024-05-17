@@ -1,8 +1,6 @@
 // port number prefix is 111
 
-import {
-  describe, expect, it
-} from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 import retry from '../../src/utils/retry.js'
 import delay from '../../src/utils/delay.js'

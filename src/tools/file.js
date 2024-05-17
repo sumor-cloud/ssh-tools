@@ -13,13 +13,13 @@ const randomFolderName = () => {
 }
 
 const fileUtils = {
-  async tmp (namespace) {
+  async tmp(namespace) {
     namespace = namespace || 'sumor-tmp'
     const tmpFolder = path.normalize(`${os.tmpdir()}/${namespace}/${randomFolderName()}`)
     await fse.ensureDir(tmpFolder)
     return tmpFolder
   },
-  async zip (source, target, ignore) {
+  async zip(source, target, ignore) {
     return await new Promise((resolve, reject) => {
       const output = fse.createWriteStream(target)
       const archive = archiver('zip', {
@@ -39,10 +39,10 @@ const fileUtils = {
       archive.finalize()
     })
   },
-  async unzip (source, target) {
+  async unzip(source, target) {
     source = path.normalize(source)
     return await new Promise((resolve, reject) => {
-      extract(source, { dir: target }, (err) => {
+      extract(source, { dir: target }, err => {
         if (err) {
           reject(err)
         } else {
@@ -53,23 +53,23 @@ const fileUtils = {
   }
 }
 
-export default (ssh) => {
-  const ensureDir = async (folder) => {
+export default ssh => {
+  const ensureDir = async folder => {
     await ssh.exec(`mkdir -p ${folder}`)
   }
 
-  const tmp = async (namespace) => {
+  const tmp = async namespace => {
     namespace = namespace || 'sumor-tmp'
     const tmpFolder = `/tmp/${namespace}/${randomFolderName()}`
     await ensureDir(tmpFolder)
     return tmpFolder
   }
 
-  const remove = async (target) => {
+  const remove = async target => {
     await ssh.exec(`rm -rf ${target}`)
   }
 
-  const exists = async (path) => {
+  const exists = async path => {
     try {
       await ssh.exec(`ls ${path}`)
       return true
@@ -143,7 +143,7 @@ export default (ssh) => {
     return result
   }
 
-  const info = async (target) => {
+  const info = async target => {
     if (await exists(target)) {
       const text = await ssh.exec(`stat ${target} -c "%X|%Y|%Z"`)
       const items = text.split('|')

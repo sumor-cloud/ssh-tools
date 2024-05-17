@@ -2,10 +2,13 @@
   "maxWorkers": 1,
   "reporters": [
     "default",
-    ["jest-html-reporter", {
-      "pageTitle": "Test Report",
-      "outputPath": "./output/unit/index.html"
-    }]
+    [
+      "jest-html-reporter",
+      {
+        "pageTitle": "Test Report",
+        "outputPath": "./output/unit/index.html"
+      }
+    ]
   ],
   "coverageThreshold": {
     "global": {
@@ -15,21 +18,9 @@
       "statements": 80
     }
   },
-  "coverageDirectory":"output/coverage",
+  "coverageDirectory": "output/coverage",
   "coverageReporters": ["text-summary", "html"],
   "collectCoverageFrom": ["src/**/*.{js,jsx}"],
-  "testPathIgnorePatterns": [
-    "node_modules",
-    "output",
-    "static",
-    "dist",
-    "tmp"
-  ],
-  "coveragePathIgnorePatterns": [
-    "node_modules",
-    "output",
-    "static",
-    "dist",
-    "tmp"
-  ]
+  "testPathIgnorePatterns": ["node_modules", "output", "static", "dist", "tmp"],
+  "coveragePathIgnorePatterns": ["node_modules", "output", "static", "dist", "tmp"]
 }

@@ -6,7 +6,7 @@ const randomId = () => {
   return Math.random().toString(36).substring(2, 15)
 }
 
-export default (ssh) => {
+export default ssh => {
   const sshFileUtils = file(ssh)
   const lockRoot = '/usr/sumor-cloud/lock'
 
@@ -57,11 +57,14 @@ export default (ssh) => {
     }
     await checkValid()
     const id = randomId()
-    await sshFileUtils.writeFile(lockPath, JSON.stringify({
-      id,
-      time: Date.now(),
-      timeout
-    }))
+    await sshFileUtils.writeFile(
+      lockPath,
+      JSON.stringify({
+        id,
+        time: Date.now(),
+        timeout
+      })
+    )
 
     return id
   }
