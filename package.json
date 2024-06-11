@@ -42,14 +42,14 @@
   },
   "scripts": {
     "link": "npm link",
-    "lint": "eslint .",
-    "audit": "npm audit fix --force",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
     "test-ssh": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/ssh.test.js'",
     "test-file": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/file.test.js'",
     "test-lock": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/lock.test.js'",
     "test-utils": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/utils.test.js'",
     "test-monitor": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/monitor.test.js'",
+    "lint": "eslint .",
+    "autofix": "eslint --fix . && prettier --write . && npm audit fix --force",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
     "push-tag": "git push && git push --tags",
     "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
@@ -57,6 +57,6 @@
     "publish-release-minor": "npm version minor && npm run push-tag",
     "publish-release-major": "npm version major && npm run push-tag",
     "prepare": "husky",
-    "check": "eslint --fix . && prettier --write . && npm audit fix --force && npm run coverage"
+    "check": "npm run autofix && npm run coverage"
   }
 }
