@@ -1,5 +1,6 @@
 import { NodeSSH } from 'node-ssh'
 import retry from './utils/retry.js'
+import logger from './utils/logger.js'
 
 export default class SSH {
   constructor(config) {
@@ -24,6 +25,7 @@ export default class SSH {
     await this.connect()
     options = options || {}
     options.cwd = options.cwd || '~'
+    logger.code('SSH_CMD', { cmd, cwd: options.cwd })
     const result = await this.connection.execCommand(cmd, options)
     if (result.code !== 0) {
       throw new Error(result.stderr)

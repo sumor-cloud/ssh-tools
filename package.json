@@ -15,6 +15,7 @@
     "monitor"
   ],
   "dependencies": {
+    "@sumor/logger": "^1.2.8",
     "fs-extra": "^11.2.0",
     "node-ssh": "^13.1.0",
     "archiver": "^2.1.1",
