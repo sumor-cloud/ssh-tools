@@ -1,7 +1,7 @@
 {
   "name": "@sumor/ssh-tools",
   "description": "SSH connections and tools that are simple, easy to use, and scalable.",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "repository": "sumor-cloud/ssh-tools",
   "author": "Sumor Cloud Ltd",
